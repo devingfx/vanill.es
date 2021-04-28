@@ -4,13 +4,14 @@ A vanilla javascript... non-framework!
 
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/gh/devingfx/vanill.es"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/devingfx/vanill.es/index.js"></script>
 ```
 
 ```html
 <script type="module">
-import 'https://cdn.jsdelivr.net/gh/devingfx/vanill.es'
-import { DOM } from 'https://cdn.jsdelivr.net/gh/devingfx/vanill.es'
+import 'https://cdn.jsdelivr.net/gh/devingfx/vanill.es/index.js'
+import { DOM } from 'https://cdn.jsdelivr.net/gh/devingfx/vanill.es/index.js'
+import { DOM } from 'https://cdn.jsdelivr.net/gh/devingfx/vanill.es/DOM.js'
 </script>
 ```
 

@@ -3,23 +3,6 @@ const LINE = s=> s.split('\n')
 
 const LINE1 = s=> s
 
-const DOM = (ss,...pp)=> (
-                ss = Array.from(ss), 
-                S0 = ss.shift(), 
-                L0 = (LL = LINE(S0)).shift(), 
-                ss = [...LL, ...ss], 
-                (new DOMParser).parseFromString(
-					ss.map( (i,s)=> s + pp[i] || '' ), 
-					L0
-				).body.childNodes 
-            )
-
-const HTML = (ss,...pp)=> DOM( ['text/html\n', ...ss], ...pp ).body.childNodes
-
-const XML = (ss,...pp)=> DOM( ['application/xml\n', ...ss], ...pp ).documentElement
-
-const SVG = (ss,...pp)=> DOM( ['image/svg+xml\n', ...ss], ...pp )
-
 const EACH = (o,f)=> ( Array.isArray(o)
                          ? o.map(f)
                          : Object.keys(o).map(k=>f.call(this,o[k],k,o))
@@ -31,7 +14,7 @@ const PROX = obj=> new Proxy( obj, {} )
 console.log(EACH({aze:42,foo:true},f=>f))
 
 
-export { LINE, DOM, HTML, EACH, LOAD, PROX }
+export { LINE, EACH, LOAD, PROX } 
 
 export const isSym = obj=> typeof obj == 'symbol'
 export const isFunc = obj=> typeof obj == 'function' || obj instanceof Function
@@ -40,3 +23,6 @@ export const isNum = obj=> typeof obj == 'number' || obj instanceof Number
 export const isString = obj=> typeof obj == 'string' || obj instanceof String
 export const isArray = obj=> typeof obj == 'object' && Array.isArray( obj )
 export const isObject = obj=> typeof obj == 'object' // always true! useless
+
+
+export { DOM, HTML, XML, SVG } './DOM.js'
