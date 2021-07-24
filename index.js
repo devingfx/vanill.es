@@ -25,4 +25,4 @@ export const isArray = obj=> typeof obj == 'object' && Array.isArray( obj )
 export const isObject = obj=> typeof obj == 'object' // always true! useless
 
 
-export { DOM, HTML, XML, SVG } './DOM.js'
+export { DOM, HTML, XML, SVG } from './DOM.js'
