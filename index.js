@@ -11,7 +11,7 @@ const EACH = (o,f)=> ( Array.isArray(o)
 const LOAD = url=> fetch(url).then(o=>o.json())
 
 const PROX = obj=> new Proxy( obj, {} )
-console.log(EACH({aze:42,foo:true},f=>f))
+// console.log(EACH({aze:42,foo:true},f=>f))
 
 
 export { LINE, EACH, LOAD, PROX } 
@@ -25,4 +25,4 @@ export const isArray = obj=> typeof obj == 'object' && Array.isArray( obj )
 export const isObject = obj=> typeof obj == 'object' // always true! useless
 
 
-export { DOM, HTML, XML, SVG } from './DOM.js'
+export { xmlns, DOC, XML, XHTML, HTML, SVG, CSS } from './DOM.js'
