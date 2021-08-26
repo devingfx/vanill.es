@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Vanilla - complete tests</title>
+
+	<script src="https://unpkg.com/testado"></script>
+	
+	<script type="module">
+		// import { HTMLTest } from 'https://unpkg.com/testado/renderers/html.js'
+		import { HTMLTest } from './HTMLRenderer.js'
+		
+		// import String from './String.tests.js'
+		// import DOM from './DOM.tests.js'
+		
+		// console.log( String, DOM )
+		
+		// ;[ String, DOM ]
+		// 	.map( async test=> 
+		// 		document.body.insertAdjacentHTML( 'beforeend',
+		// 			HTMLTest()( await test )
+		// 		) 
+		// 	)
+		
+		
+		document.body.insertAdjacentHTML( 'beforeend', `<tests>` )
+		const container = document.body.querySelector('tests')
+					
+		const loadTests = window.onhashchange = e=> {
+		
+			container.innerHTML = ''
+			
+			location.hash.slice(1).split('&')
+				.map( module=> `./${module}.tests.js` )
+				.map( async url=>
+					await (
+						await import(url)
+								.catch(err=>
+									container.insertAdjacentHTML( 'beforeend',
+										HTMLTest()( {ss:['⛔️ no such file: '+url],pp:[]} )
+									)
+								)
+					).default
+				)
+				.map( async test=>
+					container.insertAdjacentHTML( 'beforeend',
+						HTMLTest()( await test )
+					)
+				)
+		}
+		
+		!location.hash
+			? ( location.hash = '#String&DOM' )
+			: loadTests()
+		
+		
+	</script>
+	
+	<style>
+	tests, tests * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif }
+	tests > *,
+	tests details > *:not(summary),
+	tests details { padding-left: 2em }
+	tests details > summary { list-style-position: initial }
+	tests h1, tests h2, tests h3, tests h4, tests h5, tests h6 { font-weight: 400 }
+	</style>
+</head>
