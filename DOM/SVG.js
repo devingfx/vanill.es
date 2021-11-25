@@ -1,0 +1,11 @@
+import DOC from './DOC.js'
+
+/* from ./Elliott.ist/waves.svg/DOM.js
+const SVG = (ss,...pp)=> DOC`<svg xmlns="http://www.w3.org/2000/svg">${String.merge(ss,...pp)}</svg>`
+*/
+// Wrong: works on string
+export default (...args)=>
+	[...DOC('image/svg+xml')( ...args ).documentElement.childNodes]
+	// [...DOC('image/svg+xml')`<svg xmlns="http://www.w3.org/2000/svg">${String.merge(...args)}</svg>`
+	// .documentElement.childNodes]
+	// .querySelectorAll(':root>*')]
