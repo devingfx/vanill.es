@@ -3,13 +3,27 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Vanilla - complete tests</title>
+	<title>Vanilla - tests runner</title>
 
 	<script src="https://unpkg.com/testado"></script>
 	
 	<script type="module">
 		// import { HTMLTest } from 'https://unpkg.com/testado/renderers/html.js'
 		import { HTMLTest } from './HTMLRenderer.js'
+		
+		const knownTests = [
+			'tests/String',
+			'tests/DOM',
+			'tests/EventojLancilo',
+			'tests/SVG',
+			'Array/reduce/groupBy',
+		]
+		
+		const DEBUG = /debug/.test( location.search )
+		
+		const log = DEBUG
+						? ss=> (...a)=> console.log( ss.join(''), ...a) || a[0]
+						: ss=> o=>o
 		
 		// import String from './String.tests.js'
 		// import DOM from './DOM.tests.js'
@@ -26,34 +40,74 @@
 		
 		document.body.insertAdjacentHTML( 'beforeend', `<tests>` )
 		const container = document.body.querySelector('tests')
-					
-		const loadTests = window.onhashchange = e=> {
 		
+		const urlTPL = module=> `../${module}.tests.js`
+		
+		const importTest = async module=>
+			(
+				await import( urlTPL(module) )
+					.catch(err=> console.error(err)||
+						container.insertAdjacentHTML( 'beforeend',
+							HTMLTest()( {ss:['⛔️ no such file: '+urlTPL(module)],pp:[err]} )
+						)
+					)
+			).default
+		
+		// const loadTests = (...modules)=> 
+			
+		// 	// container.innerHTML = ''
+			
+		// 	modules
+		// 		.map( urlTPL )
+		// 		.map( async url=>
+		// 			await (
+		// 				await import(url)
+		// 						.catch(err=>
+		// 							container.insertAdjacentHTML( 'beforeend',
+		// 								HTMLTest()( {ss:['⛔️ no such file: '+url],pp:[]} )
+		// 							)
+		// 						)
+		// 			).default//({test})
+		// 		)
+		// 		// .map( async test=>
+				// 	container.insertAdjacentHTML( 'beforeend',
+				// 		HTMLTest()( await test )
+				// 	)
+				// )
+		
+		
+		const launchTest = async t=> (await t)({test})
+		// const launchTests = (...tests)=> tests.map( t=> t({test}) )
+		const renderTest = async t=> 
+				// .map( async test=>
+					container.insertAdjacentHTML( 'beforeend',
+						HTMLTest()( await t )
+					)
+				// )
+		// const renderTests = (...tests)=> tests.map( renderTest )
+		
+		
+		
+		window.onhashchange = e=> {
+			
 			container.innerHTML = ''
 			
+			// loadTests( ...location.hash.slice(1).split('&') )
 			location.hash.slice(1).split('&')
-				.map( module=> `./${module}.tests.js` )
-				.map( async url=>
-					await (
-						await import(url)
-								.catch(err=>
-									container.insertAdjacentHTML( 'beforeend',
-										HTMLTest()( {ss:['⛔️ no such file: '+url],pp:[]} )
-									)
-								)
-					).default
-				)
-				.map( async test=>
-					container.insertAdjacentHTML( 'beforeend',
-						HTMLTest()( await test )
-					)
-				)
+				.map( log`modules to test: ` )
+				.map( importTest )
+				.map( log`modules: ` )
+				.map( launchTest )
+				// .map( res=> console.log('res: ',res)||res )
+				.map( log`test result: ` )
+				.map( renderTest )
+			
 		}
 		
 		!location.hash
-			? ( location.hash = '#String&DOM' )
-			: loadTests()
-		
+			// ? ( location.hash = '#String&DOM&EventojLancilo&SVG' )
+			? ( location.hash = '#'+knownTests.join('&') )
+			: window.onhashchange()
 		
 	</script>
 	

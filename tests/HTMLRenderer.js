@@ -24,5 +24,5 @@ export const HTMLTest = ( lvl = 2 )=> test=>
 					</summary>
 					${test.length ? test.map(HTMLTest(lvl+1)).join('') : ''}
 				</details>`
-			:	`<h${lvl}>${HTMLsspp( test.ss, ...test.pp )}</h${lvl}>`
+			:	`<h${lvl}>${HTMLsspp( test.ss, ...(test.pp||[]) )}</h${lvl}>`
 		
