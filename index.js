@@ -26,3 +26,4 @@ export const isObject = obj=> typeof obj == 'object' // always true! useless
 
 
 export { xmlns, DOC, XML, XHTML, HTML, SVG, CSS } from './DOM.js'
+export { merge, toKebabCase, toCamelCase, MD, YAML, JSON } from './String.js'
