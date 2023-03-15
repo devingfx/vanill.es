@@ -3,10 +3,12 @@
 * or import 'testado' in nodejs
 */	
 
-import { $, $$, xmlns, DOC, XML, XHTML, HTML, SVG } from '../DOM.js'
+import { $, $$, xmlns, DOC, XML, XHTML, HTML, SVG } from './index_.js'
 //Node.prototype.$ .$$ .add
 
-export default test `DOM.js`( async({test})=> {
+export default ({test})=>
+
+test `DOM.js`( async({test})=> {
 	
 	await test `Query selectors`( async ({test})=> {
 	
@@ -17,20 +19,7 @@ export default test `DOM.js`( async({test})=> {
 					let exp = node.querySelector( q )
 					ok `results match with native` ( res == exp )		
 				})
-			// const def = ( extended, fn )=> (...pp)=> (...args)=> {
-			// 	return extended(...pp)( async ({ok})=> {
-			// 		fn(...args)
-			// 	})
-			// }
-			// const testQuery = def( test, (res,q,node)=> {
-			// 		let exp = node.querySelector( q )
-			// 		ok `results match with native` ( res == exp )		
-			// 	})
-			// def `testQuery`(test) ((res,q,node)=>{
-			// 		let exp = node.querySelector( q )
-			// 		ok `results match with native` ( res == exp )		
-			// 	})
-			// def `okCoucou`(ok) ((res,exp='coucou')=> ok() ))
+			
 			
 			ok `function defined on <Node>s` ( '$' in document.body && typeof document.body.$ == 'function' )
 			ok `function defined on document` ( '$' in document && typeof document.$ == 'function' )
