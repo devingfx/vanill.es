@@ -20,7 +20,8 @@ export { default as JSON } from "./JSON.js"
 
 export * from "./DateTime.js"
 
-
+export { default as escapeRegExp } from "./escapeRegExp.js"
+export { default as trimChar } from "./trimChar.js"
 
 //@TODO live TXT tag ? updates it's properties parts when it changes
 // export const TXT
