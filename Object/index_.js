@@ -1,0 +1,5 @@
+import './getPrototypeChainOf_.js'
+import './mergeDescriptors_.js'
+export { default as type } from './type_.js'
+export { defineProperties, defineProperty, getOwnPropertyDescriptors, getOwnPropertyDescriptor } from './advancedDescriptor_.js'
+export { inheritProperties, inheritProperty } from './inheritProperties_.js'
