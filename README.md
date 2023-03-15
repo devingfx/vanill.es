@@ -192,7 +192,7 @@ import { groupBy } from 'vanill.es/index.js'
 import { groupBy } from 'vanill.es'
 ```
 
-> Of course, using index modules browsers will also import everything else in that module !
+> Of course, using index modules in browsers will also import everything else in that module !
 > Avoid it to get benefit of **tree shaking** or use a packager like [rollup](https://rollupjs.org/guide/en/)...
 
 You may also add custom entries to the importmap to name it
