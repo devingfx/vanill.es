@@ -5,7 +5,7 @@ const _tag = Symbol`tagName`
 
 export default class Base extends HTMLElement {
 	
-	get shadowRoot(){ return shadowRoot(this) }
+	get shadowRoot(){ return super.shadowRoot ?? shadowRoot(this) }
 
 	static css = CSS``
 	css = CSS``
