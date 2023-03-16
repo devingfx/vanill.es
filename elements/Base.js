@@ -1,5 +1,5 @@
 import { CSS } from '../DOM.js'
-import { shadowRoot } from './ShadowRoot.js'
+import shadowRoot from './ShadowRoot.js'
 
 const _tag = Symbol`tagName`
 
